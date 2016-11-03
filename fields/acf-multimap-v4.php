@@ -166,18 +166,84 @@ class acf_field_multimap extends acf_field {
 	
 	function create_field( $field )
 	{
-		// defaults?
-		/*
-		$field = array_merge($this->defaults, $field);
-		*/
-		
-		// perhaps use $field['preview_size'] to alter the markup?
-		
-		
-		// create Field HTML
+		// require the googlemaps JS ( this script is now lazy loaded via JS )
+		//wp_enqueue_script('acf-googlemaps');
+
+
+		// default value
+		if( !is_array($field['value']) )
+		{
+			$field['value'] = array();
+		}
+
+		$field['value'] = wp_parse_args($field['value'], array(
+			'address'	=> '',
+			'lat'		=> '',
+			'lng'		=> ''
+		));
+
+
+		// default options
+		foreach( $this->default_values as $k => $v )
+		{
+			if( ! $field[ $k ] )
+			{
+				$field[ $k ] = $v;
+			}
+		}
+
+
+		// vars
+		$o = array(
+			'class'		=>	'',
+		);
+
+		if( $field['value']['address'] )
+		{
+			$o['class'] = 'active';
+		}
+
+
+		$atts = '';
+		$keys = array(
+			'data-id'	=> 'id',
+			'data-lat'	=> 'center_lat',
+			'data-lng'	=> 'center_lng',
+			'data-zoom'	=> 'zoom'
+		);
+
+		foreach( $keys as $k => $v )
+		{
+			$atts .= ' ' . $k . '="' . esc_attr( $field[ $v ] ) . '"';
+		}
+
 		?>
-		<div>
-			
+		<div class="acf-google-map <?php echo $o['class']; ?>" <?php echo $atts; ?>>
+
+			<div style="display:none;">
+				<?php foreach( $field['value'] as $k => $v ): ?>
+					<input type="hidden" class="input-<?php echo $k; ?>" name="<?php echo esc_attr($field['name']); ?>[<?php echo $k; ?>]" value="<?php echo esc_attr( $v ); ?>" />
+				<?php endforeach; ?>
+			</div>
+
+			<div class="title">
+
+				<div class="has-value">
+					<a href="#" class="acf-sprite-remove ir" title="<?php _e("Clear location",'acf'); ?>">Remove</a>
+					<h4><?php echo $field['value']['address']; ?></h4>
+				</div>
+
+				<div class="no-value">
+					<a href="#" class="acf-sprite-locate ir" title="<?php _e("Find current location",'acf'); ?>">Locate</a>
+					<input type="text" placeholder="<?php _e("Search for address...",'acf'); ?>" class="search" />
+				</div>
+
+			</div>
+
+			<div class="canvas" style="height: <?php echo $field['height']; ?>px">
+
+			</div>
+
 		</div>
 		<?php
 	}
