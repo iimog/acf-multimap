@@ -28,12 +28,19 @@ class acf_field_multimap extends acf_field {
 	{
 		// vars
 		$this->name = 'multimap';
-		$this->label = __('FIELD_LABEL');
-		$this->category = __("Basic",'acf'); // Basic, Content, Choice, etc
+		$this->label = __('Multi Map');
+		$this->category = __("jQuery",'acf'); // Basic, Content, Choice, etc
 		$this->defaults = array(
-			// add default here to merge into your field. 
-			// This makes life easy when creating the field options as you don't need to use any if( isset('') ) logic. eg:
-			//'preview_size' => 'thumbnail'
+			'height'		=> '',
+			'center_lat'	=> '',
+			'center_lng'	=> '',
+			'zoom'			=> ''
+		);
+		$this->default_values = array(
+			'height'		=> '400',
+			'center_lat'	=> '-37.81411',
+			'center_lng'	=> '144.96328',
+			'zoom'			=> '14'
 		);
 		
 		

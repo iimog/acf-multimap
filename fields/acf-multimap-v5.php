@@ -37,7 +37,7 @@ class acf_field_multimap extends acf_field {
 		*  label (string) Multiple words, can include spaces, visible when selecting a field type
 		*/
 		
-		$this->label = __('FIELD_LABEL', 'acf-multimap');
+		$this->label = __('Multi Map', 'acf-multimap');
 		
 		
 		/*
