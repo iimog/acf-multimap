@@ -69,41 +69,86 @@ class acf_field_multimap extends acf_field {
 	
 	function create_options( $field )
 	{
-		// defaults?
-		/*
-		$field = array_merge($this->defaults, $field);
-		*/
-		
-		// key is needed in the field names to correctly save the data
+		// vars
 		$key = $field['name'];
-		
-		
-		// Create Field Options HTML
+
 		?>
-<tr class="field_option field_option_<?php echo $this->name; ?>">
-	<td class="label">
-		<label><?php _e("Preview Size",'acf'); ?></label>
-		<p class="description"><?php _e("Thumbnail is advised",'acf'); ?></p>
-	</td>
-	<td>
+		<tr class="field_option field_option_<?php echo $this->name; ?>">
+			<td class="label">
+				<label><?php _e("Center",'acf'); ?></label>
+				<p class="description"><?php _e('Center the initial map','acf'); ?></p>
+			</td>
+			<td>
+				<ul class="hl clearfix">
+					<li style="width:48%;">
+						<?php
+
+						do_action('acf/create_field', array(
+							'type'			=> 'text',
+							'name'			=> 'fields['.$key.'][center_lat]',
+							'value'			=> $field['center_lat'],
+							'prepend'		=> 'lat',
+							'placeholder'	=> $this->default_values['center_lat']
+						));
+
+						?>
+					</li>
+					<li style="width:48%; margin-left:4%;">
+						<?php
+
+						do_action('acf/create_field', array(
+							'type'			=> 'text',
+							'name'			=> 'fields['.$key.'][center_lng]',
+							'value'			=> $field['center_lng'],
+							'prepend'		=> 'lng',
+							'placeholder'	=> $this->default_values['center_lng']
+						));
+
+						?>
+					</li>
+				</ul>
+
+			</td>
+		</tr>
+		<tr class="field_option field_option_<?php echo $this->name; ?>">
+			<td class="label">
+				<label><?php _e("Zoom",'acf'); ?></label>
+				<p class="description"><?php _e('Set the initial zoom level','acf'); ?></p>
+			</td>
+			<td>
+				<?php
+
+				do_action('acf/create_field', array(
+					'type'			=> 'number',
+					'name'			=> 'fields['.$key.'][zoom]',
+					'value'			=> $field['zoom'],
+					'placeholder'	=> $this->default_values['zoom']
+				));
+
+				?>
+			</td>
+		</tr>
+		<tr class="field_option field_option_<?php echo $this->name; ?>">
+			<td class="label">
+				<label><?php _e("Height",'acf'); ?></label>
+				<p class="description"><?php _e('Customise the map height','acf'); ?></p>
+			</td>
+			<td>
+				<?php
+
+				do_action('acf/create_field', array(
+					'type'			=> 'number',
+					'name'			=> 'fields['.$key.'][height]',
+					'value'			=> $field['height'],
+					'append'		=> 'px',
+					'placeholder'	=> $this->default_values['height']
+				));
+
+				?>
+			</td>
+		</tr>
 		<?php
-		
-		do_action('acf/create_field', array(
-			'type'		=>	'radio',
-			'name'		=>	'fields['.$key.'][preview_size]',
-			'value'		=>	$field['preview_size'],
-			'layout'	=>	'horizontal',
-			'choices'	=>	array(
-				'thumbnail' => __('Thumbnail'),
-				'something_else' => __('Something Else'),
-			)
-		));
-		
-		?>
-	</td>
-</tr>
-		<?php
-		
+
 	}
 	
 	
