@@ -120,10 +120,10 @@
 				// reference
 				var $el = this.map.$el;
 
-
+				var index = _this.map.markers.length - 1;
 				// manually update address
 				var address = $el.find('.search').val();
-				$el.find('.input-address').val( address );
+				$el.find('.input-address:eq('+index+')').val( address );
 				$el.find('.title h4').text( address );
 
 
@@ -142,7 +142,7 @@
 				}
 				else
 				{
-					// client hit enter, manulaly get the place
+					// client hit enter, manually get the place
 					_this.geocoder.geocode({ 'address' : address }, function( results, status ){
 
 						// validate
@@ -189,13 +189,7 @@
 
 			});
 
-			if(this.map.markers.length >= 1){
-				var bounds = new google.maps.LatLngBounds();
-				for (var i = 0; i < this.map.markers.length; i++) {
-					bounds.extend(this.map.markers[i].getPosition());
-				}
-				this.map.fitBounds(bounds);
-			}
+			this.center();
 
 
 			// add to maps
@@ -241,25 +235,22 @@
 
 		center : function(){
 
-			// vars
-			var position = this.map.markers[0].getPosition(),
-				lat = this.o.lat,
-				lng = this.o.lng;
+			// Center using the markers if there are any - else use options
+			if(this.map.markers.length >= 1 && this.map.markers[0].getPosition()){
+				var bounds = new google.maps.LatLngBounds();
+				for (var i = 0; i < this.map.markers.length; i++) {
+					bounds.extend(this.map.markers[i].getPosition());
+				}
+				this.map.fitBounds(bounds);
+			} else {
+				var	lat = this.o.lat,
+					lng = this.o.lng;
 
-
-			// if marker exists, center on the marker
-			if( position )
-			{
-				lat = position.lat();
-				lng = position.lng();
+				var latlng = new google.maps.LatLng( lat, lng );
+				// set center of map
+				this.map.setCenter( latlng );
 			}
 
-
-			var latlng = new google.maps.LatLng( lat, lng );
-
-
-			// set center of map
-			this.map.setCenter( latlng );
 		},
 
 		sync : function(index){
