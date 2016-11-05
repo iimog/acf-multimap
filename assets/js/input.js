@@ -98,11 +98,11 @@
 
 
 			// add dummy marker
-			this.map.marker = new google.maps.Marker({
+			this.map.markers = [new google.maps.Marker({
 				draggable	: true,
 				raiseOnDrag	: true,
 				map			: this.map,
-			});
+			})];
 
 
 			// add references
@@ -179,14 +179,14 @@
 			});
 
 
-			google.maps.event.addListener( this.map.marker, 'dragend', function(){
+			google.maps.event.addListener( this.map.markers[0], 'dragend', function(){
 
 				// reference
 				var $el = this.map.$el;
 
 
 				// vars
-				var position = this.map.marker.getPosition(),
+				var position = this.map.markers[0].getPosition(),
 					lat = position.lat(),
 					lng = position.lng();
 
@@ -230,11 +230,11 @@
 
 
 			// update marker
-			this.map.marker.setPosition( latlng );
-
-
 			// show marker
-			this.map.marker.setVisible( true );
+			for(var i=0; i<this.map.markers.length; i++){
+				this.map.markers[i].setPosition( latlng );
+				this.map.markers[i].setVisible( true );
+			}
 
 
 			// update class
@@ -252,7 +252,7 @@
 		center : function(){
 
 			// vars
-			var position = this.map.marker.getPosition(),
+			var position = this.map.markers[0].getPosition(),
 				lat = this.o.lat,
 				lng = this.o.lng;
 
@@ -279,7 +279,7 @@
 
 
 			// vars
-			var position = this.map.marker.getPosition(),
+			var position = this.map.markers[0].getPosition(),
 				latlng = new google.maps.LatLng( position.lat(), position.lng() );
 
 
@@ -365,8 +365,10 @@
 			this.$el.find('.input-lng').val('');
 
 
-			// hide marker
-			this.map.marker.setVisible( false );
+			// hide markers
+			for(var i=0; i<this.map.markers.length; i++){
+				this.map.markers[i].setVisible( false );
+			}
 		},
 
 		edit : function(){
