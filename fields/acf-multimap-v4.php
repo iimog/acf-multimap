@@ -173,14 +173,14 @@ class acf_field_multimap extends acf_field {
 		// default value
 		if( !is_array($field['value']) )
 		{
-			$field['value'] = array();
+			$field['value'] = array(array());
 		}
 
-		$field['value'] = wp_parse_args($field['value'], array(array(
+		$field['value'][0] = wp_parse_args($field['value'][0], array(
 			'address'	=> '',
 			'lat'		=> '',
 			'lng'		=> ''
-		)));
+		));
 
 
 		// default options
@@ -218,10 +218,10 @@ class acf_field_multimap extends acf_field {
 		}
 
 		?>
-		<div class="acf-google-map <?php echo $o['class']; ?>" <?php echo $atts; ?>>
+		<div class="acf-google-multimap <?php echo $o['class']; ?>" <?php echo $atts; ?>>
 
 			<div style="display:none;">
-				<?php foreach( $field['value'] as $k => $v ): ?>
+				<?php foreach( $field['value'][0] as $k => $v ): ?>
 					<input type="hidden" class="input-<?php echo $k; ?>" name="<?php echo esc_attr($field['name']); ?>[0][<?php echo $k; ?>]" value="<?php echo esc_attr( $v ); ?>" />
 				<?php endforeach; ?>
 			</div>
@@ -230,7 +230,7 @@ class acf_field_multimap extends acf_field {
 
 				<div class="has-value">
 					<a href="#" class="acf-sprite-remove ir" title="<?php _e("Clear location",'acf'); ?>">Remove</a>
-					<h4><?php echo $field['value']['address']; ?></h4>
+					<h4><?php echo $field['value'][0]['address']; ?></h4>
 				</div>
 
 				<div class="no-value">
