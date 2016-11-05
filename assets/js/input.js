@@ -355,10 +355,20 @@
 			this.$el.find('.input-lng').val('');
 
 
-			// hide markers
+			// remove all but one marker (hide the last one)
 			for(var i=0; i<this.map.markers.length; i++){
 				this.map.markers[i].setVisible( false );
+				if(i>0){
+					this.map.markers[i].map = null;
+					this.map.markers[i] = null;
+				}
 			}
+			this.map.markers.length = 1;
+
+			// remove obsolet input fields
+			this.$el.find('.input-address:gt(0)').remove();
+			this.$el.find('.input-lat:gt(0)').remove();
+			this.$el.find('.input-lng:gt(0)').remove();
 		},
 
 		edit : function(){
