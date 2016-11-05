@@ -262,14 +262,17 @@
 			this.map.setCenter( latlng );
 		},
 
-		sync : function(){
+		sync : function(index){
+			if(typeof index === 'undefined'){
+				index = this.map.markers.length - 1;
+			}
 
 			// reference
 			var $el	= this.$el;
 
 
 			// vars
-			var position = this.map.markers[0].getPosition(),
+			var position = this.map.markers[index].getPosition(),
 				latlng = new google.maps.LatLng( position.lat(), position.lng() );
 
 
@@ -293,12 +296,11 @@
 				var location = results[0];
 
 
-				// update h4
+				// update address
 				$el.find('.title h4').text( location.formatted_address );
 
-
 				// update input
-				$el.find('.input-address').val( location.formatted_address ).trigger('change');
+				$el.find('.input-address:eq('+index+')').val(location.formatted_address).trigger('change');
 
 			});
 
@@ -421,7 +423,7 @@
 					lat = position.lat(),
 					lng = position.lng();
 
-				_this.update( lat, lng, index );
+				_this.update( lat, lng, index ).sync(index);
 			});
 
 			if(addInputFields){
