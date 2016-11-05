@@ -393,6 +393,10 @@
 			// center map
 			this.center();
 
+		},
+
+		addMarker: function(){
+			
 		}
 
 	};
@@ -560,6 +564,14 @@
 		{
 			acf.fields.multimap.set({ $el : $field.find('.acf-google-multimap') }).refresh();
 		}
+
+	});
+
+	$(document).on('click', '.acf-google-multimap .acf-add-location-marker', function( e ){
+
+		e.preventDefault();
+
+		acf.fields.multimap.addMarker();
 
 	});
 
