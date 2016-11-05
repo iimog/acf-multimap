@@ -1,0 +1,88 @@
+/*--------------------------------------------------------------------------
+*
+*	Field: Location
+*	
+*-------------------------------------------------------------------------*/
+
+.acf-google-multimap {
+    position: relative;
+    border: #DFDFDF solid 1px;
+    background: #fff;
+}
+
+.acf-google-multimap .title {
+    position: relative;
+    border-bottom: #DFDFDF solid 1px;
+}
+
+.acf-google-multimap .has-value { display: none; }
+.acf-google-multimap .no-value { display: block; }
+
+.acf-google-multimap.active .has-value { display: block; }
+.acf-google-multimap.active .no-value { display: none; }
+
+.acf-google-multimap .title h4,
+.acf-google-multimap .title input[type="text"] {
+    margin: 0;
+    font-size: 12px;
+    line-height: 16px;
+    padding: 10px;
+    border: 0 none;
+    box-shadow: none;
+    border-radius: 0;
+    font-family: inherit;
+    cursor: text;
+}
+
+.acf-google-multimap .title input[type="text"] {
+    height: 36px;
+    line-height: normal;
+}
+
+.acf-google-multimap .title .search {
+    height: auto;
+    border: 0 none;
+}
+
+.acf-google-multimap .acf-sprite-remove,
+.acf-google-multimap .acf-sprite-locate {
+    right: 7px;
+    top: 7px;
+    position: absolute;
+}
+
+.acf-google-multimap .acf-sprite-remove {
+    background-position: -71px -221px;
+    height: 9px;
+    width: 9px;
+    border: 6px solid transparent;
+}
+.acf-google-multimap .acf-sprite-remove:hover { background-position: -71px -271px; }
+
+.acf-google-multimap .acf-sprite-locate {
+    background-position: -50px -300px;
+    width: 13px;
+    height: 13px;
+    border: 5px solid transparent;
+}
+.acf-google-multimap .acf-sprite-locate:hover { background-position: -50px -350px; }
+
+.acf-google-multimap .canvas {
+    height: 400px;
+}
+
+.pac-container {
+    margin-left: -1px;
+    margin-top: -1px;
+    padding: 5px 0;
+    border-color: #DFDFDF;
+}
+
+.pac-container:after {
+    display: none;
+}
+
+.pac-container .pac-item {
+    padding: 5px;
+    margin: 0 5px;
+}
