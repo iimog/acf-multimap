@@ -391,16 +391,17 @@
 			if(position === null){
 				position = this.map.getCenter();
 			}
+			var index = this.map.markers.length;
 			var marker = new google.maps.Marker({
 				draggable	: true,
 				raiseOnDrag	: true,
 				map			: this.map,
+				label		: index+""
 			});
 			this.map.markers.push(marker);
 			marker.setPosition(position);
 			marker.setVisible(true);
 
-			var index = this.map.markers.length -1;
 			google.maps.event.addListener( marker, 'dragend', function(){
 				// reference
 				var $el = this.map.$el;
