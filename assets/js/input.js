@@ -412,7 +412,7 @@
 	$(document).on('acf/setup_fields', function(e, el){
 
 		// reference
-		var self = acf.fields.google_map;
+		var self = acf.fields.multimap;
 
 
 		// vars
@@ -434,7 +434,7 @@
 
 					$fields.each(function(){
 
-						acf.fields.google_map.set({ $el : $(this) }).init();
+						acf.fields.multimap.set({ $el : $(this) }).init();
 
 					});
 
@@ -454,7 +454,7 @@
 
 				$fields.each(function(){
 
-					acf.fields.google_map.set({ $el : $(this) }).init();
+					acf.fields.multimap.set({ $el : $(this) }).init();
 
 				});
 
@@ -468,7 +468,7 @@
 		// google exists
 		$fields.each(function(){
 
-			acf.fields.google_map.set({ $el : $(this) }).init();
+			acf.fields.multimap.set({ $el : $(this) }).init();
 
 		});
 
@@ -495,7 +495,7 @@
 
 		e.preventDefault();
 
-		acf.fields.google_map.set({ $el : $(this).closest('.acf-google-multimap') }).clear();
+		acf.fields.multimap.set({ $el : $(this).closest('.acf-google-multimap') }).clear();
 
 		$(this).blur();
 
@@ -506,7 +506,7 @@
 
 		e.preventDefault();
 
-		acf.fields.google_map.set({ $el : $(this).closest('.acf-google-multimap') }).locate();
+		acf.fields.multimap.set({ $el : $(this).closest('.acf-google-multimap') }).locate();
 
 		$(this).blur();
 
@@ -516,7 +516,7 @@
 
 		e.preventDefault();
 
-		acf.fields.google_map.set({ $el : $(this).closest('.acf-google-multimap') }).edit();
+		acf.fields.multimap.set({ $el : $(this).closest('.acf-google-multimap') }).edit();
 
 	});
 
@@ -547,7 +547,7 @@
 	$(document).on('acf/fields/tab/show acf/conditional_logic/show', function( e, $field ){
 
 		// validate
-		if( ! acf.fields.google_map.ready )
+		if( ! acf.fields.multimap.ready )
 		{
 			return;
 		}
@@ -556,7 +556,7 @@
 		// validate
 		if( $field.attr('data-field_type') == 'google_map' )
 		{
-			acf.fields.google_map.set({ $el : $field.find('.acf-google-multimap') }).refresh();
+			acf.fields.multimap.set({ $el : $field.find('.acf-google-multimap') }).refresh();
 		}
 
 	});
