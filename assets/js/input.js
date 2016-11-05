@@ -414,7 +414,7 @@
 					lat = position.lat(),
 					lng = position.lng();
 
-				_this.update( lat, lng, index ).sync(index);
+				_this.set({ $el : $el }).update( lat, lng, index ).sync(index);
 			});
 
 			if(addInputFields){
