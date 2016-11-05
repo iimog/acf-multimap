@@ -300,9 +300,35 @@ class acf_field_multimap extends acf_field {
 
 	function input_admin_head()
 	{
-		// Note: This function can be removed if not used
+		add_action( 'admin_footer', array( $this, 'input_admin_footer') );
 	}
-	
+
+	function input_admin_footer() {
+
+		// vars
+		$api = array(
+			'libraries'		=> 'places',
+			'key'			=> '',
+			'client'		=> ''
+		);
+
+
+		// filter
+		$api = apply_filters('acf/fields/google_map/api', $api);
+
+
+		// remove empty
+		if( empty($api['key']) ) unset($api['key']);
+		if( empty($api['client']) ) unset($api['client']);
+
+
+		?>
+		<script type="text/javascript">
+			acf.fields.multimap.api = <?php echo json_encode($api); ?>;
+		</script>
+		<?php
+
+	}
 	
 	/*
 	*  field_group_admin_enqueue_scripts()
