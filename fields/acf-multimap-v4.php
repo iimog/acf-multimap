@@ -220,7 +220,7 @@ class acf_field_multimap extends acf_field {
 		?>
 		<div class="acf-google-multimap <?php echo $o['class']; ?>" <?php echo $atts; ?>>
 
-			<div style="display:none;">
+			<div class="acf-google-multimap-markers" style="display:none;" data-fieldname="<?php echo esc_attr($field['name']); ?>">
 				<?php foreach( $field['value'] as $i => $value ): ?>
 					<?php foreach( $value as $k => $v ): ?>
 						<input type="hidden" class="input-<?php echo $k; ?>" name="<?php echo esc_attr($field['name']); ?>[<?php echo $i; ?>][<?php echo $k; ?>]" value="<?php echo esc_attr( $v ); ?>" />
