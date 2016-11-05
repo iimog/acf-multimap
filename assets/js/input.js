@@ -174,22 +174,6 @@
 			});
 
 
-			google.maps.event.addListener( this.map.markers[0], 'dragend', function(){
-
-				// reference
-				var $el = this.map.$el;
-
-
-				// vars
-				var position = this.map.markers[0].getPosition(),
-					lat = position.lat(),
-					lng = position.lng();
-
-				_this.set({ $el : $el }).update( lat, lng ).sync();
-
-			});
-
-
 			google.maps.event.addListener( this.map, 'click', function( e ) {
 
 				// reference
@@ -220,23 +204,27 @@
 
 		},
 
-		update : function( lat, lng ){
+		update : function( lat, lng, index ){
+			// If no marker index is specified use the last marker that was added
+			if(typeof index === 'undefined'){
+				index = this.map.markers.length-1;
+			}
 
 			// vars
 			var latlng = new google.maps.LatLng( lat, lng );
 
 
 			// update inputs
-			this.$el.find('.input-lat').val( lat );
-			this.$el.find('.input-lng').val( lng ).trigger('change');
+			this.$el.find('.input-lat:eq('+index+')').val( lat );
+			this.$el.find('.input-lng:eq('+index+')').val( lng ).trigger('change');
 
 
 			// update marker
+			this.map.markers[index].setPosition( latlng );
+
+
 			// show marker
-			for(var i=0; i<this.map.markers.length; i++){
-				this.map.markers[i].setPosition( latlng );
-				this.map.markers[i].setVisible( true );
-			}
+			this.map.markers[index].setVisible( true );
 
 
 			// update class
@@ -398,6 +386,7 @@
 		},
 
 		addMarker: function(position, addInputFields){
+			var _this	= this;
 			console.log(position, addInputFields);
 			if(position === null){
 				position = this.map.getCenter();
@@ -410,6 +399,19 @@
 			this.map.markers.push(marker);
 			marker.setPosition(position);
 			marker.setVisible(true);
+
+			var index = this.map.markers.length -1;
+			google.maps.event.addListener( marker, 'dragend', function(){
+				// reference
+				var $el = this.map.$el;
+
+				// vars
+				var position = marker.getPosition(),
+					lat = position.lat(),
+					lng = position.lng();
+
+				_this.update( lat, lng, index );
+			});
 
 			if(addInputFields){
 				var $markers = this.$el.find('.acf-google-multimap-markers');
