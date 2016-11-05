@@ -176,11 +176,11 @@ class acf_field_multimap extends acf_field {
 			$field['value'] = array();
 		}
 
-		$field['value'] = wp_parse_args($field['value'], array(
+		$field['value'] = wp_parse_args($field['value'], array(array(
 			'address'	=> '',
 			'lat'		=> '',
 			'lng'		=> ''
-		));
+		)));
 
 
 		// default options
@@ -222,7 +222,7 @@ class acf_field_multimap extends acf_field {
 
 			<div style="display:none;">
 				<?php foreach( $field['value'] as $k => $v ): ?>
-					<input type="hidden" class="input-<?php echo $k; ?>" name="<?php echo esc_attr($field['name']); ?>[<?php echo $k; ?>]" value="<?php echo esc_attr( $v ); ?>" />
+					<input type="hidden" class="input-<?php echo $k; ?>" name="<?php echo esc_attr($field['name']); ?>[0][<?php echo $k; ?>]" value="<?php echo esc_attr( $v ); ?>" />
 				<?php endforeach; ?>
 			</div>
 
