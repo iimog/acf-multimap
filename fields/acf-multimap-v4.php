@@ -221,12 +221,16 @@ class acf_field_multimap extends acf_field {
 		<div class="acf-google-multimap <?php echo $o['class']; ?>" <?php echo $atts; ?>>
 
 			<div style="display:none;">
-				<?php foreach( $field['value'][0] as $k => $v ): ?>
-					<input type="hidden" class="input-<?php echo $k; ?>" name="<?php echo esc_attr($field['name']); ?>[0][<?php echo $k; ?>]" value="<?php echo esc_attr( $v ); ?>" />
+				<?php foreach( $field['value'] as $i => $value ): ?>
+					<?php foreach( $value as $k => $v ): ?>
+						<input type="hidden" class="input-<?php echo $k; ?>" name="<?php echo esc_attr($field['name']); ?>[<?php echo $i; ?>][<?php echo $k; ?>]" value="<?php echo esc_attr( $v ); ?>" />
+					<?php endforeach; ?>
 				<?php endforeach; ?>
 			</div>
 
+
 			<div class="title">
+				<div class="button acf-add-location-marker">Add marker</div>
 
 				<div class="has-value">
 					<a href="#" class="acf-sprite-remove ir" title="<?php _e("Clear location",'acf'); ?>">Remove</a>
@@ -237,7 +241,6 @@ class acf_field_multimap extends acf_field {
 					<a href="#" class="acf-sprite-locate ir" title="<?php _e("Find current location",'acf'); ?>">Locate</a>
 					<input type="text" placeholder="<?php _e("Search for address...",'acf'); ?>" class="search" />
 				</div>
-
 			</div>
 
 			<div class="canvas" style="height: <?php echo $field['height']; ?>px">
