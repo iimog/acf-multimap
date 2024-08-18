@@ -34,13 +34,15 @@ class acf_field_multimap extends acf_field {
 			'height'		=> '',
 			'center_lat'	=> '',
 			'center_lng'	=> '',
-			'zoom'			=> ''
+			'zoom'			=> '',
+			'name'			=> ''
 		);
 		$this->default_values = array(
 			'height'		=> '400',
 			'center_lat'	=> '-37.81411',
 			'center_lng'	=> '144.96328',
-			'zoom'			=> '14'
+			'zoom'			=> '14',
+			'name'			=> ''
 		);
 		
 		
@@ -179,9 +181,16 @@ class acf_field_multimap extends acf_field {
 		$field['value'][0] = wp_parse_args($field['value'][0], array(
 			'address'	=> '',
 			'lat'		=> '',
-			'lng'		=> ''
+			'lng'		=> '',
+			'name'		=> '',
 		));
 
+		// add "name" field if it does not exist yet (added in 08-2024)
+		foreach ($field['value'] as $i => $value) {
+			if (!array_key_exists('name', $value) || !isset($value['name'])) {
+				$field['value'][$i]['name'] = '';
+			}
+		}
 
 		// default options
 		foreach( $this->default_values as $k => $v )
@@ -220,12 +229,17 @@ class acf_field_multimap extends acf_field {
 		?>
 		<div class="acf-google-multimap <?php echo $o['class']; ?>" <?php echo $atts; ?>>
 
-			<div class="acf-google-multimap-markers" style="display:none;" data-fieldname="<?php echo esc_attr($field['name']); ?>">
+			<div class="acf-google-multimap-markers" data-fieldname="<?php echo esc_attr($field['name']); ?>">
+				<h5>Namen der Orte</h5>
+				<ol class="acf-google-multimap-markers-names" start="0">
 				<?php foreach( $field['value'] as $i => $value ): ?>
+					<li>
 					<?php foreach( $value as $k => $v ): ?>
-						<input type="hidden" class="input-<?php echo $k; ?>" name="<?php echo esc_attr($field['name']); ?>[<?php echo $i; ?>][<?php echo $k; ?>]" value="<?php echo esc_attr( $v ); ?>" />
+						<input <?php if($k != "name"){ echo 'type="hidden"'; } ?> class="input-<?php echo $k; ?>" name="<?php echo esc_attr($field['name']); ?>[<?php echo $i; ?>][<?php echo $k; ?>]" value="<?php echo esc_attr( $v ); ?>" />
 					<?php endforeach; ?>
+					</li>
 				<?php endforeach; ?>
+				</ol>
 			</div>
 
 
@@ -243,9 +257,7 @@ class acf_field_multimap extends acf_field {
 				</div>
 			</div>
 
-			<div class="canvas" style="height: <?php echo $field['height']; ?>px">
-
-			</div>
+			<div class="canvas" style="height: <?php echo $field['height']; ?>px"> </div>
 
 		</div>
 		<?php

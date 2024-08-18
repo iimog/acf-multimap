@@ -418,22 +418,30 @@
 			});
 
 			if(addInputFields){
-				var $markers = this.$el.find('.acf-google-multimap-markers');
+				var $markers = this.$el.find('.acf-google-multimap-markers-names');
 				var fieldName = $markers.attr('data-fieldname');
+
+				var $newLI = $('<li></li>');
 
 				var $addressInput = $('<input type="hidden" class="input-address" name="" value="" />');
 				$addressInput.attr('name', fieldName+"["+(this.map.markers.length-1)+"][address]");
-				this.$el.find('.acf-google-multimap-markers').append($addressInput);
+				$newLI.append($addressInput);
+
+				var $nameInput = $('<input class="input-name" name="" value="" />');
+				$nameInput.attr('name', fieldName+"["+(this.map.markers.length-1)+"][name]");
+				$newLI.append($nameInput);
 
 				var $latInput = $('<input type="hidden" class="input-lat" name="" value="" />');
 				$latInput.val(marker.getPosition().lat);
 				$latInput.attr('name', fieldName+"["+(this.map.markers.length-1)+"][lat]");
-				this.$el.find('.acf-google-multimap-markers').append($latInput);
+				$newLI.append($latInput);
 
 				var $lngInput = $('<input type="hidden" class="input-lng" name="" value="" />');
 				$lngInput.val(marker.getPosition().lng);
 				$lngInput.attr('name', fieldName+"["+(this.map.markers.length-1)+"][lng]");
-				this.$el.find('.acf-google-multimap-markers').append($lngInput);
+				$newLI.append($lngInput);
+
+				$markers.append($newLI);
 			}
 		}
 
