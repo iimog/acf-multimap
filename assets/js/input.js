@@ -346,6 +346,7 @@
 			this.$el.find('.input-address').val('');
 			this.$el.find('.input-lat').val('');
 			this.$el.find('.input-lng').val('');
+			this.$el.find('.input-name').val('');
 
 
 			// remove all but one marker (hide the last one)
@@ -362,6 +363,7 @@
 			this.$el.find('.input-address:gt(0)').remove();
 			this.$el.find('.input-lat:gt(0)').remove();
 			this.$el.find('.input-lng:gt(0)').remove();
+			this.$el.find('.input-name:gt(0)').remove();
 		},
 
 		edit : function(){
