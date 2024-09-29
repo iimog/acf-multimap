@@ -231,7 +231,7 @@ class acf_field_multimap extends acf_field {
 
 			<div class="acf-google-multimap-markers" data-fieldname="<?php echo esc_attr($field['name']); ?>">
 				<h5>Namen der Orte</h5>
-				<ol class="acf-google-multimap-markers-names" start="0">
+				<ol class="acf-google-multimap-markers-names" start="0" data-fieldname="<?php echo esc_attr($field['name']); ?>">
 				<?php foreach( $field['value'] as $i => $value ): ?>
 					<li>
 					<?php foreach( $value as $k => $v ): ?>
